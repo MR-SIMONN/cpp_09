@@ -79,37 +79,41 @@ bool valid_date(const std::string& date)
 	return (true);
 }
 
-bool valid_value(const std::string& value_str)
+int valid_value(const std::string& value_str)
 {
 	if (!is_number(value_str))
-	{
-		std::cout << "Error: Invalid value." << std::endl;
-		return (false);
-	}
+		return (1);
 	double value = std::atof(value_str.c_str());
 	if (value < 0)
-	{
-		std::cout << "Error: not a positive number." << std::endl;
-		return (false);
-	}
+		return (2);
 	if (value > 1000)
-	{
-		std::cout << "Error: too large a number." << std::endl;
-		return (false);
-	}
+		return (3);
 
-	return (true);
+	return (0);
 }
 
-bool valid_date_and_value(const std::string& date, const std::string& value)
+bool valid_date_and_value(const std::string& date, const std::string& value, const std::string &line)
 {
 	if (!valid_date(date))
-	{
-		std::cout << "Error: Invalid date." << std::endl;
-		return false;
-	}
-	if (!valid_value(value))
-		return false;
+		{
+			std::cout << "Error: bad input => " << line << std::endl;
+			return false;
+		}
+	else if (valid_value(value) == 1)
+		{
+			std::cout << "Error: bad input => " << line << std::endl;
+			return false;
+		}
+	else if (valid_value(value) == 2)
+		{
+			std::cout << "Error: not a positive number." << std::endl;
+			return false;
+		}
+	else if (valid_value(value) == 3)
+		{
+			std::cout << "Error: too large a number." << std::endl;
+			return false;
+		}
 	return true;
 }
 
@@ -174,7 +178,7 @@ void BitcoinExchange::parse_input_file(const std::string& filename)
         {
             std::string date = trim(line.substr(0, commaPos));
             std::string value = trim(line.substr(commaPos + 1));
-            if (valid_date_and_value(date, value))
+            if (valid_date_and_value(date, value, line))
                 print_exchange_rate(date, std::atof(value.c_str()));
         }
 		else
