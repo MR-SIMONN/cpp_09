@@ -1,6 +1,6 @@
 SRCS = main.cpp BitcoinExchange.cpp
 
-NAME = bitcoin_exchange
+NAME = btc
 
 CXX = c++
 

@@ -24,7 +24,7 @@ bool is_number(const std::string& value)
 	
 	if (value.empty())
 		return (false);
-	if (value[0] == '-')
+	if (value[0] == '-' || value[0] == '+')
 		i++;
 	while (i < value.length())
 	{
@@ -109,10 +109,7 @@ bool valid_date_and_value(const std::string& date, const std::string& value)
 		return false;
 	}
 	if (!valid_value(value))
-	{
-		std::cout << "Error: Invalid value." << std::endl;
 		return false;
-	}
 	return true;
 }
 
@@ -153,8 +150,7 @@ void BitcoinExchange::parse_data_file(const std::string& filename)
             std::string date = trim(line.substr(0, commaPos));
             std::string value_str = trim(line.substr(commaPos + 1));
             double value = std::atof(value_str.c_str());
-			// if (valid_date_and_value(date, value_str))
-            	exchangeRates[date] = value;
+            exchangeRates[date] = value;
         }
     }
     file.close();
@@ -181,6 +177,8 @@ void BitcoinExchange::parse_input_file(const std::string& filename)
             if (valid_date_and_value(date, value))
                 print_exchange_rate(date, std::atof(value.c_str()));
         }
+		else
+			std::cout << "Error: bad input => " << line << std::endl;
     }
     file.close();
 }
