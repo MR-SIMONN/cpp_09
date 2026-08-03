@@ -49,7 +49,6 @@ std::string trim(const std::string& str)
     return (first == std::string::npos ? "" : str.substr(first, last - first + 1));
 }
 
-
 bool valid_date(const std::string& date)
 {
 	// Check if the date is in the format YYYY-MM-DD

@@ -8,6 +8,7 @@
 #include <vector>
 #include <cstdlib>
 
+
 class BitcoinExchange
 {
     private:
