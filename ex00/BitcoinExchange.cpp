@@ -140,7 +140,7 @@ void BitcoinExchange::parse_data_file(const std::string& filename)
     if (!file.is_open())
     {
         std::cout << "Error: Could not open data file." << std::endl;
-        return;
+        exit (1);
     }
 
     std::string line;
@@ -165,7 +165,7 @@ void BitcoinExchange::parse_input_file(const std::string& filename)
     if (!file.is_open())
     {
         std::cout << "Error: Could not open input file." << std::endl;
-        return;
+        exit (1);
     }
 
     std::string line;
