@@ -136,7 +136,7 @@ void BitcoinExchange::print_exchange_rate(const std::string& date, double value)
 
 void BitcoinExchange::parse_data_file(const std::string& filename)
 {
-    std::ifstream file(filename);
+    std::ifstream file(filename.c_str());
     if (!file.is_open())
     {
         std::cout << "Error: Could not open data file." << std::endl;
@@ -153,7 +153,8 @@ void BitcoinExchange::parse_data_file(const std::string& filename)
             std::string date = trim(line.substr(0, commaPos));
             std::string value_str = trim(line.substr(commaPos + 1));
             double value = std::atof(value_str.c_str());
-            exchangeRates[date] = value;
+			// if (valid_date_and_value(date, value_str))
+            	exchangeRates[date] = value;
         }
     }
     file.close();
@@ -161,7 +162,7 @@ void BitcoinExchange::parse_data_file(const std::string& filename)
 
 void BitcoinExchange::parse_input_file(const std::string& filename)
 {
-    std::ifstream file(filename);
+    std::ifstream file(filename.c_str());
     if (!file.is_open())
     {
         std::cout << "Error: Could not open input file." << std::endl;

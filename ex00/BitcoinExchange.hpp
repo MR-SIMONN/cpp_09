@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <cstdlib>
 
 class BitcoinExchange
 {
