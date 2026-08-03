@@ -144,7 +144,13 @@ void BitcoinExchange::parse_data_file(const std::string& filename)
     }
 
     std::string line;
-    std::getline(file, line); // Skip the header line
+    std::getline(file, line);
+	if (line != "date,exchange_rate")
+    {
+        std::cout << "Error: Invalid data file header." << std::endl;
+		file.close();
+        exit (1);
+    }
     while (std::getline(file, line))
     {
         size_t commaPos = line.find(',');
@@ -169,7 +175,13 @@ void BitcoinExchange::parse_input_file(const std::string& filename)
     }
 
     std::string line;
-    std::getline(file, line); // Skip the header line
+    std::getline(file, line);
+	if (line != "date | value")
+	{
+		std::cout << "Error: Invalid input file header." << std::endl;
+		file.close();
+		exit (1);
+	}
     while (std::getline(file, line))
     {
         size_t commaPos = line.find('|');
