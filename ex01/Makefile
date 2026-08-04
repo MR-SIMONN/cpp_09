@@ -1,6 +1,6 @@
-SRCS = main.cpp
+SRCS = main.cpp RPN.cpp
 
-NAME =
+NAME = RPN
 
 CXX = c++
 
@@ -8,7 +8,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 OBJS = $(SRCS:%.cpp=%.o)
 
-DEPS = .hpp
+DEPS = RPN.hpp
 
 all: $(NAME)
 
