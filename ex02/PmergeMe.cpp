@@ -1,7 +1,18 @@
-// PmergeMe.cpp
 #include "PmergeMe.hpp"
 
 PmergeMe::PmergeMe() {}
+
+PmergeMe::PmergeMe(const PmergeMe &other) : vec(other.vec), de(other.de) {}
+
+PmergeMe &PmergeMe::operator=(const PmergeMe &other)
+{
+    if (this != &other)
+    {
+        vec = other.vec;
+        de = other.de;
+    }
+    return (*this);
+}
 
 PmergeMe::~PmergeMe() {}
 
@@ -20,9 +31,9 @@ void PmergeMe::process_input(int ac, char **av)
     for (int i = 1; i < ac; i++)
     {
 		parse_input(av[i]);
-		int value = std::stoi(av[i]);
-		_vector.push_back(value);
-		_deque.push_back(value);
+		int value = std::atoi(av[i]);
+		vec.push_back(value);
+		de.push_back(value);
     }
 }
 
