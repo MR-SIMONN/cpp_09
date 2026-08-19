@@ -12,8 +12,7 @@ int main(int ac, char **av)
 
     try
     {
-        pmergeMe.process_input(ac, av);
-        pmergeMe.sort_and_display();
+        pmergeMe.run_algorithm(ac, av);
     }
     catch (const std::exception &e)
     {
