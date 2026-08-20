@@ -21,7 +21,7 @@ PmergeMe::~PmergeMe() {}
 void parse_num(const std::string &str)
 {
 	int skip_plus = str[0] == '+';
-	for (int i = skip_plus; i < str.length(); i++)
+	for (size_t i = skip_plus; i < str.size(); i++)
 	{
 		if (!std::isdigit(str[i]))
 			throw std::invalid_argument("Error: Invalid input provided.");
@@ -92,7 +92,7 @@ void sort_V_pairs(std::vector< std::pair<int, int> > &V_pairs)
 	sort_V_pairs(right);
 	
 	V_pairs.clear();
-	int i = 0, j = 0;
+	size_t i = 0, j = 0;
 	while (i < left.size() && j < right.size())
 	{
 		if (left[i] < right[j])
@@ -118,7 +118,7 @@ void sort_deque_pairs(std::deque< std::pair<int, int> > &d_pairs)
 	sort_deque_pairs(right);
 	
 	d_pairs.clear();
-	int i = 0, j = 0;
+	size_t i = 0, j = 0;
 	while (i < left.size() && j < right.size())
 	{
 		if (left[i] < right[j])
@@ -143,7 +143,7 @@ std::vector<int> generate_jacobsthal(int size)
 	return (jacobsthal);
 }
 
-void insert_V_loosers(std::vector< std::pair<int, int> > &V_pairs, int odd_element)
+std::vector<int> insert_V_loosers(std::vector< std::pair<int, int> > &V_pairs, int odd_element)
 {
 	std::vector<int> main_chain;
 	std::vector<int> loosers;
@@ -155,16 +155,16 @@ void insert_V_loosers(std::vector< std::pair<int, int> > &V_pairs, int odd_eleme
 	}
 	main_chain.insert(main_chain.begin(), loosers[0]);
 
-	std::vector<int> jacob_sequence = generate_jacobsthal(loosers.size());
+	std::vector<int> jacob_sequence = generate_jacobsthal(loosers.size() + 2);
 
-	int last_jacob = 1;
+	size_t last_jacob = 1;
 	for (size_t i = 2; i < jacob_sequence.size(); ++i) 
 	{
-		int current_jacob = jacob_sequence[i];
+		size_t current_jacob = jacob_sequence[i];
 
 		if (current_jacob > loosers.size())
 			current_jacob = loosers.size();
-		for (int j = current_jacob - 1; j >= last_jacob; --j)
+		for (size_t j = current_jacob - 1; j >= last_jacob; --j)
 		{
 			std::vector<int>::iterator limit = std::find(main_chain.begin(), main_chain.end(), V_pairs[j].first);
 			std::vector<int>::iterator insert_pos = std::lower_bound(main_chain.begin(), limit, loosers[j]);
@@ -177,9 +177,10 @@ void insert_V_loosers(std::vector< std::pair<int, int> > &V_pairs, int odd_eleme
 		std::vector<int>::iterator it = std::lower_bound(main_chain.begin(), main_chain.end(), odd_element);
 		main_chain.insert(it, odd_element);
 	}
+	return (main_chain);
 }
 
-void insert_deque_loosers(std::deque< std::pair<int, int> > &D_pairs, int odd_element)
+std::deque<int> insert_deque_loosers(std::deque< std::pair<int, int> > &D_pairs, int odd_element)
 {
 	std::deque<int> main_chain;
 	std::deque<int> loosers;
@@ -193,14 +194,14 @@ void insert_deque_loosers(std::deque< std::pair<int, int> > &D_pairs, int odd_el
 
 	std::vector<int> jacob_sequence = generate_jacobsthal(loosers.size());
 
-	int last_jacob = 1;
+	size_t last_jacob = 1;
 	for (size_t i = 2; i < jacob_sequence.size(); ++i) 
 	{
-		int current_jacob = jacob_sequence[i];
+		size_t current_jacob = jacob_sequence[i];
 
 		if (current_jacob > loosers.size())
 			current_jacob = loosers.size();
-		for (int j = current_jacob - 1; j >= last_jacob; --j)
+		for (size_t j = current_jacob - 1; j >= last_jacob; --j)
 		{
 			std::deque<int>::iterator limit = std::find(main_chain.begin(), main_chain.end(), D_pairs[j].first);
 			std::deque<int>::iterator insert_pos = std::lower_bound(main_chain.begin(), limit, loosers[j]);
@@ -213,6 +214,7 @@ void insert_deque_loosers(std::deque< std::pair<int, int> > &D_pairs, int odd_el
 		std::deque<int>::iterator it = std::lower_bound(main_chain.begin(), main_chain.end(), odd_element);
 		main_chain.insert(it, odd_element);
 	}
+	return (main_chain);
 }	
 
 void PmergeMe::sort_deque()
@@ -220,7 +222,7 @@ void PmergeMe::sort_deque()
 	std::deque< std::pair<int, int> > D_pairs = get_D_pairs();
 
 	sort_deque_pairs(D_pairs);
-	insert_deque_loosers(D_pairs, D_odd_element);
+	D = insert_deque_loosers(D_pairs, D_odd_element);
 }
 
 void PmergeMe::sort_vector()
@@ -228,7 +230,7 @@ void PmergeMe::sort_vector()
 	std::vector< std::pair<int, int> > V_pairs = get_V_pairs();
 
 	sort_V_pairs(V_pairs);
-	insert_V_loosers(V_pairs, V_odd_element);
+	V = insert_V_loosers(V_pairs, V_odd_element);
 }
 
 void PmergeMe::print_vector(const std::string &msg)
