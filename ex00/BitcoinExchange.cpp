@@ -30,6 +30,8 @@ bool is_number(const std::string& value)
 	{
 		if (!std::isdigit(value[i]) && value[i] != '.')
 			return (false);
+		if (value[i] == '.' && !std::isdigit(value[i + 1]))
+			return (false);
 		if (std::isdigit(value[i]))
 			has_digit = true;
 		if (dot == 1 && !std::isdigit(value[i]))
@@ -51,7 +53,6 @@ std::string trim(const std::string& str)
 
 bool valid_date(const std::string& date)
 {
-	// Check if the date is in the format YYYY-MM-DD
 	if (date.length() != 10 || date[4] != '-' || date[7] != '-')
 		return false;
 	for (int i = 0; i < 10; i++)
@@ -131,8 +132,6 @@ void BitcoinExchange::print_exchange_rate(const std::string& date, double value)
 	}
 }
 
-
-// date and value format : YYYY-MM-DD,<value>
 
 void BitcoinExchange::parse_data_file(const std::string& filename)
 {
