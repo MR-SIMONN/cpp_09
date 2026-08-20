@@ -45,7 +45,9 @@ void PmergeMe::proccess_D_input(int ac, char **av)
     for (int i = 1; i < ac; i++)
     {
 		parse_num(av[i]);
-		int value = std::atoi(av[i]);
+		long value = std::atol(av[i]);
+		if (value > INT_MAX)
+			throw std::invalid_argument("Error");
 		D.push_back(value);
     }
 }
@@ -194,7 +196,7 @@ std::deque<int> insert_deque_loosers(std::deque< std::pair<int, int> > &D_pairs,
 	}
 	main_chain.insert(main_chain.begin(), loosers[0]);
 
-	std::vector<int> jacob_sequence = generate_jacobsthal(loosers.size());
+	std::vector<int> jacob_sequence = generate_jacobsthal(loosers.size() + 2);
 
 	size_t last_jacob = 1;
 	for (size_t i = 2; i < jacob_sequence.size(); ++i) 

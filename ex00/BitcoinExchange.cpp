@@ -28,11 +28,11 @@ bool is_number(const std::string& value)
 		i++;
 	while (i < value.length())
 	{
-		if (!isdigit(value[i]) && value[i] != '.')
+		if (!std::isdigit(value[i]) && value[i] != '.')
 			return (false);
-		if (isdigit(value[i]))
+		if (std::isdigit(value[i]))
 			has_digit = true;
-		if (dot == 1 && !isdigit(value[i]))
+		if (dot == 1 && !std::isdigit(value[i]))
 			return (false);
 		if (value[i] == '.')
 				dot++;

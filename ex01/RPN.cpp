@@ -11,7 +11,7 @@ void calculat_RPN(const std::string &expression)
         if (c == ' ')
             continue;
         
-        if (isdigit(c))
+        if (std::isdigit(c))
             stack.push(c - '0');
 
         else if (c == '+' || c == '-' || c == '*' || c == '/')
