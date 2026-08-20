@@ -24,7 +24,7 @@ void parse_num(const std::string &str)
 	for (size_t i = skip_plus; i < str.size(); i++)
 	{
 		if (!std::isdigit(str[i]))
-			throw std::invalid_argument("Error: Invalid input provided.");
+			throw std::invalid_argument("Error");
 	}
 }
 
@@ -33,7 +33,9 @@ void PmergeMe::proccess_V_input(int ac, char **av)
     for (int i = 1; i < ac; i++)
     {
 		parse_num(av[i]);
-		int value = std::atoi(av[i]);
+		long value = std::atol(av[i]);
+		if (value > INT_MAX)
+			throw std::invalid_argument("Error");
 		V.push_back(value);
     }
 }
@@ -237,9 +239,8 @@ void PmergeMe::print_vector(const std::string &msg)
 {
     std::cout << msg;
     for (size_t i = 0; i < V.size(); ++i)
-    {
         std::cout << V[i] << " ";
-    }
+
     std::cout << std::endl;
 }
 
