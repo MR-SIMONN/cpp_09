@@ -32,6 +32,8 @@ void PmergeMe::proccess_V_input(int ac, char **av)
 {
     for (int i = 1; i < ac; i++)
     {
+		if (av[i][0] == '\0')
+			throw std::invalid_argument("Error");
 		parse_num(av[i]);
 		long value = std::atol(av[i]);
 		if (value > INT_MAX)
@@ -44,6 +46,8 @@ void PmergeMe::proccess_D_input(int ac, char **av)
 {
     for (int i = 1; i < ac; i++)
     {
+		if (av[i][0] == '\0')
+			throw std::invalid_argument("Error");
 		parse_num(av[i]);
 		long value = std::atol(av[i]);
 		if (value > INT_MAX)
@@ -56,6 +60,8 @@ std::vector< std::pair<int, int> > PmergeMe::get_V_pairs()
 {
 	std::vector< std::pair<int, int> > V_pairs;
 
+	if (V.size() < 2)
+		throw std::invalid_argument("Error");
 	for (size_t i = 0; i < V.size() - 1; i += 2)
 	{
 		if (V[i] > V[i + 1])
@@ -72,6 +78,8 @@ std::deque< std::pair<int, int> > PmergeMe::get_D_pairs()
 {
 	std::deque< std::pair<int, int> > D_pairs;
 
+	if (D.size() < 2)
+		throw std::invalid_argument("Error");
 	for (size_t i = 0; i < D.size() - 1; i += 2)
 	{
 		if (D[i] > D[i + 1])
