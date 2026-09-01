@@ -49,7 +49,7 @@ void calculat_RPN(const std::string &expression)
             return;
         }
     }
-
+ 
     if (stack.size() != 1)
     {
         std::cerr << "Error" << std::endl;
