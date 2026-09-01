@@ -21,6 +21,8 @@ PmergeMe::~PmergeMe() {}
 void parse_num(const std::string &str)
 {
 	int skip_plus = str[0] == '+';
+	if (skip_plus && str.size() == 1)
+		throw std::invalid_argument("Error");
 	for (size_t i = skip_plus; i < str.size(); i++)
 	{
 		if (!std::isdigit(str[i]))

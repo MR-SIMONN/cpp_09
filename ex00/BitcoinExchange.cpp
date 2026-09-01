@@ -96,22 +96,22 @@ bool valid_date_and_value(const std::string& date, const std::string& value, con
 {
 	if (!valid_date(date))
 		{
-			std::cout << "Error: bad input => " << line << std::endl;
+			std::cerr << "Error: bad input => " << line << std::endl;
 			return false;
 		}
 	else if (valid_value(value) == 1)
 		{
-			std::cout << "Error: bad input => " << line << std::endl;
+			std::cerr << "Error: bad input => " << line << std::endl;
 			return false;
 		}
 	else if (valid_value(value) == 2)
 		{
-			std::cout << "Error: not a positive number." << std::endl;
+			std::cerr << "Error: not a positive number." << std::endl;
 			return false;
 		}
 	else if (valid_value(value) == 3)
 		{
-			std::cout << "Error: too large a number." << std::endl;
+			std::cerr << "Error: too large a number." << std::endl;
 			return false;
 		}
 	return true;
@@ -124,7 +124,7 @@ void BitcoinExchange::print_exchange_rate(const std::string& date, double value)
 	if (it != exchangeRates.end() && it->first == date)
 		std::cout << date << " => " << value << " = " << it->second * value << std::endl;
 	else if (it == exchangeRates.begin() && it->first != date)
-		std::cout << "Error: Date not found." << std::endl;
+		std::cerr << "Error: Date not found." << std::endl;
 	else
 	{
 		--it;
@@ -138,7 +138,7 @@ void BitcoinExchange::parse_data_file(const std::string& filename)
     std::ifstream file(filename.c_str());
     if (!file.is_open())
     {
-        std::cout << "Error: Could not open data file." << std::endl;
+        std::cerr << "Error: Could not open data file." << std::endl;
         exit (1);
     }
 
@@ -163,7 +163,7 @@ void BitcoinExchange::parse_input_file(const std::string& filename)
     std::ifstream file(filename.c_str());
     if (!file.is_open())
     {
-        std::cout << "Error: Could not open input file." << std::endl;
+        std::cerr << "Error: Could not open input file." << std::endl;
         exit (1);
     }
 
@@ -171,7 +171,7 @@ void BitcoinExchange::parse_input_file(const std::string& filename)
     std::getline(file, line);
 	if (line != "date | value")
 	{
-		std::cout << "Error: Invalid input file header." << std::endl;
+		std::cerr << "Error: Invalid input file header." << std::endl;
 		file.close();
 		exit (1);
 	}
@@ -186,7 +186,7 @@ void BitcoinExchange::parse_input_file(const std::string& filename)
                 print_exchange_rate(date, std::atof(value.c_str()));
         }
 		else
-			std::cout << "Error: bad input => " << line << std::endl;
+			std::cerr << "Error: bad input => " << line << std::endl;
     }
     file.close();
 }
