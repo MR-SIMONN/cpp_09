@@ -62,8 +62,6 @@ std::vector< std::pair<int, int> > PmergeMe::get_V_pairs()
 {
 	std::vector< std::pair<int, int> > V_pairs;
 
-	if (V.size() < 2)
-		throw std::invalid_argument("Error");
 	for (size_t i = 0; i < V.size() - 1; i += 2)
 	{
 		if (V[i] > V[i + 1])
@@ -80,8 +78,6 @@ std::deque< std::pair<int, int> > PmergeMe::get_D_pairs()
 {
 	std::deque< std::pair<int, int> > D_pairs;
 
-	if (D.size() < 2)
-		throw std::invalid_argument("Error");
 	for (size_t i = 0; i < D.size() - 1; i += 2)
 	{
 		if (D[i] > D[i + 1])
@@ -263,23 +259,24 @@ void PmergeMe::run_algorithm(int ac, char **av)
     proccess_V_input(ac, av); 
     
     print_vector("Before: ");
-    
-    sort_vector();         
-    clock_t end_vec = clock();
-    
-    print_vector("After: ");
-    
-    double time_vec = static_cast<double>(end_vec - start_vec) / CLOCKS_PER_SEC * 1000.0;
+    if (V.size() > 1)
+		sort_vector();
+	clock_t end_vec = clock();
 
-    clock_t start_de = clock();
-    proccess_D_input(ac, av); 
-    sort_deque();                
-    clock_t end_de = clock();
-    double time_de = static_cast<double>(end_de - start_de) / CLOCKS_PER_SEC * 1000.0;
+	print_vector("After: ");
+    
+	double time_vec = static_cast<double>(end_vec - start_vec) / CLOCKS_PER_SEC * 1000.0;
 
-    std::cout << "Time to process a range of " << V.size() 
+	clock_t start_de = clock();
+	proccess_D_input(ac, av);
+	if (D.size() > 1)
+		sort_deque();                
+	clock_t end_de = clock();
+	double time_de = static_cast<double>(end_de - start_de) / CLOCKS_PER_SEC * 1000.0;
+
+	std::cout << "Time to process a range of " << V.size() 
               << " elements with std::vector : " << time_vec << " ms" << std::endl;
               
-    std::cout << "Time to process a range of " << D.size() 
+	std::cout << "Time to process a range of " << D.size() 
               << " elements with std::deque : " << time_de << " ms" << std::endl;
 }
