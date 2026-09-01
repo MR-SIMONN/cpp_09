@@ -2,7 +2,7 @@
 
 void calculat_RPN(const std::string &expression)
 {
-    std::stack<int> stack;
+    std::stack<long> stack;
 
     for (size_t i = 0; i < expression.size(); i++)
     {
@@ -10,7 +10,7 @@ void calculat_RPN(const std::string &expression)
 
         if (c == ' ')
             continue;
-        
+
         if (std::isdigit(c))
             stack.push(c - '0');
 
@@ -22,9 +22,9 @@ void calculat_RPN(const std::string &expression)
                 return;
             }
 
-            int b = stack.top();
+            long b = stack.top();
             stack.pop();
-            int a = stack.top();
+            long a = stack.top();
             stack.pop();
 
             if (c == '+')
@@ -42,6 +42,11 @@ void calculat_RPN(const std::string &expression)
                 }
                 stack.push(a / b);
             }
+			if (stack.top() > INT_MAX || stack.top() < INT_MIN)
+			{
+				std::cerr << "Error" << std::endl;
+				return;
+			}
         }
         else
         {
