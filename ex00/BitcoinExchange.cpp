@@ -26,11 +26,11 @@ bool is_number(const std::string& value)
 		return (false);
 	if (value[0] == '-' || value[0] == '+')
 		i++;
-	while (i < value.length())
+	while (i < value.size())
 	{
 		if (!std::isdigit(value[i]) && value[i] != '.')
 			return (false);
-		if (value[i] == '.' && !std::isdigit(value[i + 1]))
+		if (value[i] == '.' && i == value.size() - 1)
 			return (false);
 		if (std::isdigit(value[i]))
 			has_digit = true;
@@ -53,7 +53,7 @@ std::string trim(const std::string& str)
 
 bool valid_date(const std::string& date)
 {
-	if (date.length() != 10 || date[4] != '-' || date[7] != '-')
+	if (date.size() != 10 || date[4] != '-' || date[7] != '-')
 		return false;
 	for (int i = 0; i < 10; i++)
 	{
