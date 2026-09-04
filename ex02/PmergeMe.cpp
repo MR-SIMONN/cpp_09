@@ -168,7 +168,7 @@ std::vector<int> insert_V_loosers(std::vector< std::pair<int, int> > &V_pairs, i
 	std::vector<int> jacob_sequence = generate_jacobsthal(loosers.size() + 2);
 
 	size_t last_jacob = 1;
-	for (size_t i = 2; i < jacob_sequence.size(); ++i) 
+	for (size_t i = 3; i < jacob_sequence.size(); i++)
 	{
 		size_t current_jacob = jacob_sequence[i];
 
@@ -205,7 +205,7 @@ std::deque<int> insert_deque_loosers(std::deque< std::pair<int, int> > &D_pairs,
 	std::vector<int> jacob_sequence = generate_jacobsthal(loosers.size() + 2);
 
 	size_t last_jacob = 1;
-	for (size_t i = 2; i < jacob_sequence.size(); ++i) 
+	for (size_t i = 3; i < jacob_sequence.size(); i++)
 	{
 		size_t current_jacob = jacob_sequence[i];
 
