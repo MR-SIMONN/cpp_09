@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <stack>
-#include <sstream>
 #include <climits>
 
 void calculat_RPN(const std::string &expression);
